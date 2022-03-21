@@ -29,7 +29,7 @@ public class AmazonFeatureTest {
 		driver.get("https://amazon.com");
 	}
 	
-	@Test
+	@Test(priority = 0)
 	public void verifyTextOfThatPage () {
 		
 		String expectedTitle = "Amazon.com. Spend less. Smile more.";
@@ -40,7 +40,7 @@ public class AmazonFeatureTest {
 		Assert.assertEquals(actualTitle, expectedTitle);
 	}
 	
-	@Test
+	@Test(priority = 100)
 	public void searchProduct() {
 		String productItem = "Sylvanian Families";
 		
@@ -51,7 +51,7 @@ public class AmazonFeatureTest {
 		
 		selCategory.selectByVisibleText(category);
 		
-		driver.findElement(By.id("twotabsearchbox")).sendKeys(productItem);
+		driver.findElement(By.id("twotabsearchtextbox")).sendKeys(productItem);
 		
 		driver.findElement(By.xpath("//input[@value='Go']")).click();
 	}
