@@ -2,7 +2,10 @@ package automationScripts;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -35,6 +38,22 @@ public class AmazonFeatureTest {
 		actualTitle = driver.getTitle();
 		
 		Assert.assertEquals(actualTitle, expectedTitle);
+	}
+	
+	@Test
+	public void searchProduct() {
+		String productItem = "Sylvanian Families";
+		
+		String category = "Toys & Games";
+		
+		WebElement selDropdown = driver.findElement(By.id("searchDropdownBox"));
+		Select selCategory = new Select(selDropdown);
+		
+		selCategory.selectByVisibleText(category);
+		
+		driver.findElement(By.id("twotabsearchbox")).sendKeys(productItem);
+		
+		driver.findElement(By.xpath("//input[@value='Go']")).click();
 	}
 	
 	@AfterClass
