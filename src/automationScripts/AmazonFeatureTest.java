@@ -56,13 +56,17 @@ public class AmazonFeatureTest {
 		driver.findElement(By.xpath("//input[@value='Go']")).click();
 	}
 	
-	@Test
+	@Test(priority = 200)
 	public void getNthProduct() {
-		int productItemNumber = 2;
+		int productItemNumber = 20;
 		
-		String xpathExpression = String.format("//span[@data-component-type='s-product-image'][@data-component-id = '7']", productItemNumber);
+		String xpathExpression = String.format("//div[@data-component-type='s-search-result'][%d]", productItemNumber);
 		
 		WebElement nthProduct = driver.findElement(By.xpath(xpathExpression));
+		
+		String nthProductResult = nthProduct.getText();
+		
+		System.out.println(nthProductResult);
 	}
 	
 	@AfterClass
