@@ -1,5 +1,6 @@
 package automationScripts;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -68,6 +69,24 @@ public class AmazonFeatureTest {
 		
 		System.out.println(nthProductResult);
 	}
+	
+	@Test(priority = 300)
+	public void getAllProducts() {
+		List<WebElement> allProducts = driver.findElements(By.xpath("//div[@data-component-type='s-search-result']"));
+	
+		String productResult;
+		
+		for(WebElement product : allProducts) {
+			
+			productResult = product.getText();
+			
+			System.out.println(productResult);
+			
+			System.out.println("---------------------------------------------");
+			
+		}
+	}
+	
 	
 	@AfterClass
 	public void closeBrowser() {
