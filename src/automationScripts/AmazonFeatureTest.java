@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -70,7 +71,7 @@ public class AmazonFeatureTest {
 		System.out.println(nthProductResult);
 	}
 	
-	@Test(priority = 300)
+	@Test(priority = 300, enabled = false)
 	public void getAllProducts() {
 		List<WebElement> allProducts = driver.findElements(By.xpath("//div[@data-component-type='s-search-result']"));
 	
@@ -84,6 +85,26 @@ public class AmazonFeatureTest {
 			
 			System.out.println("---------------------------------------------");
 			
+		}
+	}
+	
+	@Test(priority = 400)
+	public void searchAllProductsViaScrollDown() {
+		List<WebElement> allProducts = driver.findElements(By.xpath("//div[@data-component-type='s-search-result']"));
+		
+		String productResult;
+		
+		Actions action = new Actions(driver);
+		
+		for(WebElement product : allProducts) {
+			
+			action.moveToElement(product).build().perform();
+			
+			productResult = product.getText();
+			
+			System.out.println(productResult);
+			
+			System.out.println("---------------------------------------------");
 		}
 	}
 	
