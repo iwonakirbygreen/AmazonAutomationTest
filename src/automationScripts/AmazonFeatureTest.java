@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -88,7 +89,7 @@ public class AmazonFeatureTest {
 		}
 	}
 	
-	@Test(priority = 400)
+	@Test(priority = 400, enabled = false)
 	public void searchAllProductsViaScrollDown() {
 		List<WebElement> allProducts = driver.findElements(By.xpath("//div[@data-component-type='s-search-result']"));
 		
@@ -108,6 +109,40 @@ public class AmazonFeatureTest {
 		}
 	}
 	
+	@Test(priority = 500)
+	public void getAllProductsViaScrollDownUsingJS() {
+		List<WebElement> allProducts = driver.findElements(By.xpath("//div[@data-component-type='s-search-result']"));
+	
+		String productResult;
+		
+		int xCordinate, yCordinate;
+		
+		for(WebElement product : allProducts) {
+			
+			xCordinate = product.getLocation().x;
+			yCordinate = product.getLocation().y;
+			
+			scrollDown(xCordinate, yCordinate);
+			
+			productResult = product.getText();
+			
+			System.out.println(productResult);
+			
+			System.out.println("---------------------------------------------");
+			
+		}
+	}
+	
+	private void scrollDown(int x, int y) {
+		JavascriptExecutor jsEngine;
+		jsEngine = (JavascriptExecutor) driver;
+		
+		String jsCommand;
+		
+		jsCommand = String.format("window.scrollBy(%d,%d)", x, y);
+		
+		jsEngine.executeScript(jsCommand);
+	}
 	
 	@AfterClass
 	public void closeBrowser() {
